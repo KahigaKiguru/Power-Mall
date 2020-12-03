@@ -29,7 +29,7 @@ public class ProducerSecurity extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 	       http.antMatcher("/producer/**")
            .authorizeRequests()
-           .antMatchers("/producer/**", "/consumer/**")
+           .antMatchers("/producer/**", "/consumer/**", "/css/**", "/images/**")
            .permitAll()
            .anyRequest()
            .authenticated()
