@@ -12,7 +12,7 @@ import com.rohithreddy.PowerMallApplication.service.ConsumerService;
 
 @Configuration
 @Order(1)
-public class ConsmerSecurity extends WebSecurityConfigurerAdapter{
+public class ConsumerSecurity extends WebSecurityConfigurerAdapter{
 
 	@Autowired
 	BCryptPasswordEncoder passwordEncoder;
