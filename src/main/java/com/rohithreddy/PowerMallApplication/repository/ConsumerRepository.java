@@ -8,4 +8,5 @@ import com.rohithreddy.PowerMallApplication.model.Consumer;
 @Repository
 public interface ConsumerRepository extends CrudRepository<Consumer, Integer>{
 
+	Consumer findByEmailAddress(String email_address);
 }
