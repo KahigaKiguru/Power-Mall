@@ -1,10 +1,50 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Register</title>
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
 </head>
 <body>
-
+	<nav class="navbar navbar-expand-sm navbar-light"
+		style="background-color: #e3f2fd;">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="index.html">The Power Mall</a>
+			</div>
+			<ul class="nav navbar-nav">
+				<li><a th:href="@{/consumer/loginPage}">Buyer Login</a></li>
+				<li><a th:href="@{/producer/loginPAge}">Producer Login</a></li>
+			</ul>
+			<ul class="nav navbar-nav">
+				<li><a th:href="@{/consumer/registerPage}">Register as Consumer</a></li>
+			</ul>
+		</div>
+	</nav>
+	<div class="container">
+		<!--  success notification -->
+		<div th:if="${param.success}">
+			<div class="alert alert-info">Your Registration was Successful.
+				Proceed to log in !</div>
+		</div>
+		<h1>Seller Registration</h1>
+		<h3><i>Enter your Seller Details</i></h3>
+		<form th:action="@{/producer/registerProducer}" th:object="${producer}" method="post">
+			
+			<input type="text" th:field="*{name}" placeholder="User name" class="form-control mb-4 col-4" required autofocus="autofocus"/>
+			<br> 
+			<input type="text" th:field="*{emailAddress}" placeholder="Email Address" class="form-control mb-4 col-4" required autofocus="autofocus"/> 
+			<br> 
+			<input type="password" th:field="*{password}" placeholder="Password" class="form-control mb-4 col-4" required autofocus="autofocus"/>
+			<br>
+			<button type="submit" class="btn btn-success col-2">Register</button>
+			<br>
+		</form>
+		<hr>
+	</div>
+	
+	<div class="container">
+	<span>Already registered? <a th:href="@{/producer/loginPage}">Proceed to log in</a></span>
+	</div>
 </body>
 </html>

@@ -1,10 +1,37 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymelaeaf.org" 
+    xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Login</title>
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
 </head>
 <body>
-
+	<nav class="navbar navbar-expand-sm navbar-light" style="background-color: #e3f2fd;">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand" >Fruit Market</a>
+			</div>
+			<ul class="nav navbar-nav">
+				<li><a th:href="@{/buyer/loginPage}">Buyer Login</a></li>
+				<li><a th:href="@{/buyer/registerBuyerForm}">Register as a Buyer</a></li>
+				<li><a th:href="@{/seller/sellerRegistrationPage}">Register as a Seller</a></li>
+			</ul>
+		</div>
+	</nav>
+	<div class="container">
+		<h1>Seller login</h1>
+		<h3><i>Enter your Seller Credentials</i></h3>
+		<form th:action="@{/seller/loginForm}" method="post">
+		
+			<input type="text" id="username" name="username" placeholder="Email Address" class="form-control mb-4 col-4" required autofocus="autofocus"/>
+			<br>
+			<input type="password" id="password" name="password"  placeholder="Password" class="form-control mb-4 col-4" required autofocus="autofocus"/>
+			<br>
+			<input type="submit" id="login-submit" name="login-submit" class="btn btn-info col-2" value="Log In" />
+			<br>
+		</form>
+		<hr>
+	</div>
 </body>
 </html>

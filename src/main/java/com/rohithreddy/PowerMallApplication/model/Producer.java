@@ -29,6 +29,8 @@ public class Producer {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "producer_id")
 	private int id;
+	@Column(name = "producer_name")
+	private String name;
 	
 	@Column(name = "email_address")
 	private String emailAddress;
@@ -108,6 +110,14 @@ public class Producer {
 
 	public void setGrid(Grid grid) {
 		this.grid = grid;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 	
 	
