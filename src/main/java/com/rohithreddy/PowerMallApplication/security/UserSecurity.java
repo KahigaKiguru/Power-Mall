@@ -2,46 +2,44 @@ package com.rohithreddy.PowerMallApplication.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import com.rohithreddy.PowerMallApplication.service.ProducerService;
+import com.rohithreddy.PowerMallApplication.service.UserService;
 
 @Configuration
-@Order(2)
-public class ProducerSecurity extends WebSecurityConfigurerAdapter {
+public class UserSecurity extends WebSecurityConfigurerAdapter{
 
-	@Autowired 
+	@Autowired
 	BCryptPasswordEncoder passwordEncoder;
 	
 	@Autowired
-	ProducerService producerService;
+	UserService userService;
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(producerService).passwordEncoder(passwordEncoder);
+		auth.userDetailsService(userService).passwordEncoder(passwordEncoder);
 	}
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-	       http.antMatcher("/producer/**")
+	       http.antMatcher("/**")
            .authorizeRequests()
-           .antMatchers("/producer/**", "/consumer/**", "/css/**", "/images/**")
+           .antMatchers("/**", "/css/**", "/images/**")
            .permitAll()
            .anyRequest()
            .authenticated()
            .and()
            .formLogin()
-           .loginPage("/producer/loginPage")
-           .defaultSuccessUrl("/producer/producerrPage")
+           .loginPage("/login")
+           .defaultSuccessUrl("/index", true)
            .permitAll(true)
            .and()
            .logout()
-           .logoutUrl("/producer/logout")
-           .logoutSuccessUrl("/producer/loginPage")
+           .logoutUrl("/logout")
+           .logoutSuccessUrl("/login")
            .permitAll();
    http.csrf().disable();
 	}

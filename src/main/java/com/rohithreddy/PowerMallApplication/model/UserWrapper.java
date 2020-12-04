@@ -8,19 +8,22 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-public class ProducerWrapper implements UserDetails {
+public class UserWrapper implements UserDetails {
 
-	private Producer producer;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5577640933292143186L;
+	private User user;
 
-	public ProducerWrapper(Producer producer) {
-		super();
-		this.producer = producer;
+	public UserWrapper(User user) {
+		this.user = user;
 	}
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		
-		Collection<Role> producer_roles = producer.getRoles();
+		Collection<Role> producer_roles = user.getRoles();
 		
 		List<SimpleGrantedAuthority> producer_authorities = new ArrayList<>();
 		
@@ -32,12 +35,12 @@ public class ProducerWrapper implements UserDetails {
 
 	@Override
 	public String getPassword() {
-		return producer.getPassword();
+		return user.getPassword();
 	}
 
 	@Override
 	public String getUsername() {
-		return producer.getEmailAddress();
+		return user.getEmail();
 	}
 
 	@Override
@@ -61,6 +64,6 @@ public class ProducerWrapper implements UserDetails {
 	}
 	
 	public int getProducerId() {
-		return producer.getId();
+		return user.getId();
 	}
 }
