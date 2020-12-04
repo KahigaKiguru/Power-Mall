@@ -29,10 +29,8 @@
 				<!-- Navbar brand -->
 				<a class="navbar-brand" href="#">Welcome to the Power Mall</a>
 				<form class="form-inline">
-
-
-					<a class="btn btn-outline-white" th:href="@{/logout}" type="submit">Log
-						Out</a>
+				<a class="btn btn-outline-white" th:href="@{/updatePage(user_id=${user.id})}" type="submit">Account</a>
+					<a class="btn btn-outline-white" th:href="@{/logout}" type="submit">Log Out</a>
 				</form>
 			</div>
 		</nav>

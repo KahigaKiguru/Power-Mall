@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +24,9 @@ import com.rohithreddy.PowerMallApplication.service.UserService;
 public class UserController {
 	
 	static List<String> grids = null;
+	
+	@Autowired
+	BCryptPasswordEncoder passwordEncoder;
 	
 	static {
 		grids = new ArrayList<String>();
@@ -72,6 +76,51 @@ public class UserController {
 		userService.createUser(user);
 		return "redirect:/registerPage?registration_successful";
 	}
+//	update page
+	@GetMapping("/updatePage")
+	public String showUpdatePage(@RequestParam("user_id") int user_id, Model model) {
+		model.addAttribute("user", userService.getUserByID(user_id));
+		model.addAttribute("grid_list", grids);
+		return "user_update";
+	}
+//	update user
+	@PostMapping("/update/{user_id}")
+	public String updateUser(@PathVariable("user_id") int user_id, @ModelAttribute("user") User user_req) {
+		User user = userService.getUserByID(user_id);
+		
+		if(sellerService.getSellerByEmail(user.getEmail()) != null) {
+		Seller seller = sellerService.getSellerByEmail(user.getEmail());
+		
+		user.setName(user_req.getName());
+		seller.setName(user_req.getName());
+		user.setEmail(user_req.getEmail());
+		seller.setEmailAddress(user_req.getEmail());
+		user.setGrid(user_req.getGrid());
+		seller.setGrid(user_req.getGrid());
+		user.setSeller(seller);
+		
+		if(!user_req.getPassword().isBlank() || !user_req.getPassword().isEmpty()) {
+			user.setPassword(passwordEncoder.encode(user_req.getPassword()));
+		}
+		userService.updateUser(user);
+		sellerService.updateSeller(seller);
+		} else {
+			user.setName(user_req.getName());
+			
+			user.setEmail(user_req.getEmail());
+			
+			user.setGrid(user_req.getGrid());
+			
+			
+			
+			if(!user_req.getPassword().isBlank() || !user_req.getPassword().isEmpty()) {
+				user.setPassword(passwordEncoder.encode(user_req.getPassword()));
+			}
+			userService.updateUser(user);
+			
+		}
+		return "redirect:/index?update_successful";
+	}
 //	index
 	@GetMapping("/index")
 	public String showIndexPage(@AuthenticationPrincipal() UserWrapper userWrapper, Model model) {
@@ -120,18 +169,21 @@ public class UserController {
 		
 		Seller seller = sellerService.getSellerById(seller_id);
 		
-		seller.setKiloWattHoursSold(quantity);
+		User seller_user = userService.getUserByEmail(seller.getEmailAddress());
 		
+		seller.setKiloWattHoursSold(seller.getKiloWattHoursSold() + quantity);
+		
+		seller_user.setUnitsSold(seller_user.getUnitsSold() + quantity);
 		
 		seller.setKiloWattHoursSold(seller.getKiloWattHoursSold() + quantity);
 		seller.setKilowatthours(seller.getKilowatthours() - quantity);
-		
-		user.setUnitsBought(quantity);
+		seller_user.setUnitsBought(seller_user.getUnitsBought() + quantity);
+		user.setUnitsBought(user.getUnitsBought() + quantity);
 		
 		sellerService.updateSeller(seller);
 		
 		userService.updateUser(user);
-		
+		userService.updateUser(seller_user);
 		model.addAttribute("seller", seller);
 		
 		return "redirect:/index?purchase_successful";
@@ -140,11 +192,13 @@ public class UserController {
 	
 //	sell power page
 	@GetMapping("/sellPowerConfirmation")
-	public String sellPowerConfirm(@RequestParam("user_id") int user_id, Model model) {
+	public String sellPowerConfirm(
+			@RequestParam("user_id") int user_id,
+			Model model) {
 		User user = userService.getUserByID(user_id);
-
+		Seller seller  = sellerService.getSellerByEmail(user.getEmail());
 		model.addAttribute("user", user);
-//		model.addAttribute("seller", seller);	
+		model.addAttribute("seller", seller);	
 		return "sale_confirm";
 	}
 	
@@ -161,6 +215,9 @@ public class UserController {
 		Seller mySeller =  sellerService.getSellerByEmail(user.getEmail());
 		mySeller.setKilowatthours(mySeller.getKilowatthours() + quantity);
 		mySeller.setPricePerKillowatt(price);
+		
+		sellerService.updateSeller(mySeller);
+		
 		model.addAttribute("seller", mySeller);
 	} else {
 		Seller mySeller = new Seller();
@@ -174,6 +231,7 @@ public class UserController {
 		sellerService.createSeller(mySeller);
 		model.addAttribute("seller", mySeller);
 	}
+		
 		return "redirect:/index?sale_successful";
 	}
 	

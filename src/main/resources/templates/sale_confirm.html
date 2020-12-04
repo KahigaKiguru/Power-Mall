@@ -18,6 +18,18 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/css/mdb.min.css"
 	rel="stylesheet">
 <link rel="stylesheet" th:href="@{/css/custom.css}" />
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+	integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+	integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+	crossorigin="anonymous"></script>
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+	integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+	crossorigin="anonymous"></script>
+
 </head>
 <body>
 	<nav
@@ -28,7 +40,8 @@
 			<a class="navbar-brand" href="#">Confirm your Sale Request</a>
 			<form class="form-inline">
 				<a class="btn btn-outline-white" th:href="@{/index}" type="submit">Home</a>
-				<a class="btn btn-outline-white" th:href="@{/logout}" type="submit">Log	Out</a>
+				<a class="btn btn-outline-white" th:href="@{/logout}" type="submit">Log
+					Out</a>
 			</form>
 		</div>
 	</nav>
@@ -36,40 +49,40 @@
 	<br>
 	<br>
 	<br>
-	<div class = "container">
-	<div class = "row"> 
-	<form th:action="@{/sellPower/{user_id}(user_id=${user.id})}" method="get">
-	<label> How many KwHs Do you want to sell ?</label>
-	<input type="number" name="quantity" class="form-control mb-4" placeholder="KwH Quantity" />
-	<br>
-	<label> What is the price per unit ?</label>
-	<input type="number" name="price" class="form-control mb-4" placeholder="Price per KwH" />
-	<br>
-	<button class="btn btn-info btn-block my-4" type="submit"> Confirm Sale</button>
-	</form>
+	<div class="container">
+		<div class="row">
+			<form th:action="@{/sellPower/{user_id}(user_id=${user.id})}"
+				method="get">
+				<label> How many KwHs Do you want to sell ?</label> <input
+					type="number" name="quantity" class="form-control mb-4"
+					placeholder="KwH Quantity" /> <br> <label> What is
+					the price per unit ?</label> <input type="number" name="price"
+					class="form-control mb-4" placeholder="Price per KwH" /> <br>
+				<button class="btn btn-info btn-block my-4" data-toggle="modal"
+					data-target="#confirmModal" type="button">Confirm Sale</button>
+				
+				<div class="modal fade" id="confirmModal" tabindex="-1"
+					aria-labelledby="exampleModalLabel" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="exampleModalLabel">Confirm Sale</h5>
+								<button type="button" class="btn-close" data-dismiss="modal"
+									aria-label="Close"></button>
+							</div>
+							<div class="modal-body">Do you want to Proceed with your
+								sale?</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary"
+									data-dismiss="modal">Never Mind</button>
+								<button type="submit" class="btn btn-primary">Yes,
+									Please</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
 	</div>
-	</div>
-	<!-- <form th:object="${user}" th:action="@{/sellPower(user_id=${user.id})}" class="border border-light p-5" method="post">
-
-    <br>
-	<label>Seller's Name: </label>
-	<br>
-    <input type="text" th:field="*{user.name}" disabled="disabled" class="form-control mb-4" placeholder="Seller Name"/>
-	<br>
-	<label>Seller's Email Address: </label>
-	<br>
-	<input type="text" th:field="*{user.email}" disabled="disabled" class="form-control mb-4" placeholder="Kilowatts Available"/>
-	<label>Available KwH: </label>
-	<br>
-	<input type="text" th:field="*{user.grid}" disabled="disabled" class="form-control mb-4" placeholder="How many Kwh do you need?"/>
-	<label>Price per KwH: </label>
-	<br>
-	<input type="text" th:field="*{user.pricePerKillowatt}" disabled="disabled" class="form-control mb-4" placeholder="Grid">
-	<label>How many KwH(s) Do You want?: </label>
-	<br>
-	<input type="number" name="quantity" class="form-control mb-4" placeholder="How Many KwHs do you want?">
-	
-    <button class="btn btn-info btn-block my-4" type="submit">Confirm Sale</button>
-</form> -->
 </body>
 </html>
