@@ -34,17 +34,25 @@
 	</nav>
 	<br>
 	<br>
-	<form th:object="${user}"  class="border border-light p-5" method="get">
+	<form th:object="${seller}" th:action="@{/buyPower}" class="border border-light p-5" method="post">
 
     <br>
-    <span th:text="${user.name}"> </span>
-    's Details
-
-    <input type="text" th:field="*{user.name}" class="form-control mb-4" placeholder="Seller Name">
-	<input type="text" id="defaultLoginFormEmail" class="form-control mb-4" placeholder="Kilowatts Available">
-	<input type="text" id="defaultLoginFormEmail" class="form-control mb-4" placeholder="How many Kwh do you need?">
-	<input type="text" id="defaultLoginFormEmail" class="form-control mb-4" placeholder="Grid">
-
+	<label>Seller's Name: </label>
+	<br>
+    <input type="text" th:field="*{seller.name}" disabled="disabled" class="form-control mb-4" placeholder="Seller Name">
+	<label>Seller's Email Address: </label>
+	<br>
+	<input type="text" th:field="*{seller.emailAddress}" disabled="disabled" class="form-control mb-4" placeholder="Kilowatts Available">
+	<label>Available KwH: </label>
+	<br>
+	<input type="text" th:field="*{seller.kilowatthours}" disabled="disabled" class="form-control mb-4" placeholder="How many Kwh do you need?">
+	<label>Price per KwH: </label>
+	<br>
+	<input type="text" th:field="*{seller.pricePerKillowatt}" disabled="disabled" class="form-control mb-4" placeholder="Grid">
+	<label>How many KwH(s) Do You want?: </label>
+	<br>
+	<input type="number" name="kiloWattHoursSold" class="form-control mb-4" placeholder="How Many KwHs do you want?">
+	
     <button class="btn btn-info btn-block my-4" type="submit">Confirm Purchase</button>
 </form>
 </body>

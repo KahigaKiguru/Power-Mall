@@ -1,10 +1,82 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Buy Power</title>
+<!-- Font Awesome -->
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+<!-- Google Fonts -->
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+<!-- Bootstrap core CSS -->
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css"
+	rel="stylesheet">
+<!-- Material Design Bootstrap -->
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/css/mdb.min.css"
+	rel="stylesheet">
+<link rel="stylesheet" th:href="@{/css/custom.css}" />
 </head>
 <body>
+	<header>
+		<!--Navbar-->
+		<nav
+			class="navbar navbar-expand-lg navbar-dark primary-color fixed-top">
 
+			<div class="container">
+				<!-- Navbar brand -->
+				<a class="navbar-brand" href="#">Power Mall</a>
+				 <span> Grid : <span th:text="${user.grid}"></span>
+				</span> <br>
+				<form class="form-inline">
+				<a class="btn btn-outline-white" th:href="@{/index}" type="submit">Home</a>
+					<a class="btn btn-outline-white" th:href="@{/logout}" type="submit">Log	Out</a>
+				</form>
+			</div>
+		</nav>
+		<!--/.Navbar-->
+		<br> <br> <br> <br>
+		<div class="container my-2">
+			<div th:if="${param.purchase_successful}">
+				<div class="alert alert-success">
+					<span> Purchase Successful! Total KwH Available: </span> <span
+						th:text="${user.unitsBought}"></span>
+				</div>
+			</div>
+			<div th:if="${param.sale_successful}">
+				<div class="alert alert-success">
+					<span>Sale Successful! Total KwH sold: </span>
+				</div>
+			</div>
+			<table class="table table-striped table-responsive-md">
+				<thead>
+					<tr>
+						<th>Seller Name</th>
+						<th>Email Address</th>
+						<th>Grid Name</th>
+						<th>KwH Available</th>
+						<th>Price Per KwH ($)</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="seller : ${sellers}">
+						<td th:text="${seller.name}"></td>
+						<td th:text="${seller.emailAddress}"></td>
+						<td th:text="${seller.grid}"></td>
+						<td th:text="${seller.kilowatthours}"></td>
+						<td th:text="${seller.pricePerKillowatt}"></td>
+						<td><a
+							th:href="@{/buyPowerConfirmation(user_id=${user.id}, seller_id=${seller.id})}"
+							class="btn btn-success">Buy</a></td>
+					</tr>
+				</tbody>
+			</table>
+
+		</div>
+	</header>
+	<main></main>
+	<footer></footer>
 </body>
 </html>

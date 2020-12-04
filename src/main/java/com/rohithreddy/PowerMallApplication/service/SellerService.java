@@ -20,13 +20,15 @@ public class SellerService {
 	@Autowired
 	private UserService userService;
 	
-	public Seller createSeller(User user, double kilowatthours) {
+	public Seller createSeller(User user) {
 		Seller seller = new Seller();
 		seller.setName(user.getName());
 		seller.setEmailAddress(user.getEmail());
 		seller.setGrid(user.getGrid());
 		seller.setKiloWattHoursSold(0);
-		seller.setKilowatthours(kilowatthours);
+		seller.setKilowatthours(0);
+		seller.setUser(user);
+		seller.setPricePerKillowatt(0);
 		user.setRoles(Arrays.asList(new Role("ROLE_SELLER")));
 		
 		userService.updateUser(user);
@@ -34,16 +36,16 @@ public class SellerService {
 		return sellerRepository.save(seller);
 	}
 	
-	public void updateSeller(Seller producer) {
-		sellerRepository.save(producer);
+	public void updateSeller(Seller seller) {
+		sellerRepository.save(seller);
 	}
 	
 	public Iterable<Seller> getAllSellers(){
 		return sellerRepository.findAll();
 	}
 	
-	public Seller getSellerById(int producer_id) {
-		return sellerRepository.findById(producer_id).get();
+	public Seller getSellerById(int seller_id) {
+		return sellerRepository.findById(seller_id).get();
 	}
 	
 	public List<Seller> getSellerByGrid(String grid){

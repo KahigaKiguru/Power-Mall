@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="ISO-8859-1">
 <title>Confirm Purchase</title>
@@ -27,10 +27,45 @@
 			<!-- Navbar brand -->
 			<a class="navbar-brand" href="#">Confirm your Sale Request</a>
 			<form class="form-inline">
-
+				<a class="btn btn-outline-white" th:href="@{/index}" type="submit">Home</a>
 				<a class="btn btn-outline-white" th:href="@{/logout}" type="submit">Log	Out</a>
 			</form>
 		</div>
 	</nav>
+	<br>
+	<br>
+	<br>
+	<br>
+	<h1 th:text="${user.id}"></h1>
+	
+	<form th:action="@{/sellPower/{user_id}(user_id=${user.id})}" method="get">
+	<label> How many KwHs Do you want ?</label>
+	<input type="number" name="quantity" class="form-control mb-4" placeholder="KwH Quanntity" />
+	<br>
+	<button type="submit"> Confirm Purchase</button>
+	</form>
+	
+	<!-- <form th:object="${user}" th:action="@{/sellPower(user_id=${user.id})}" class="border border-light p-5" method="post">
+
+    <br>
+	<label>Seller's Name: </label>
+	<br>
+    <input type="text" th:field="*{user.name}" disabled="disabled" class="form-control mb-4" placeholder="Seller Name"/>
+	<br>
+	<label>Seller's Email Address: </label>
+	<br>
+	<input type="text" th:field="*{user.email}" disabled="disabled" class="form-control mb-4" placeholder="Kilowatts Available"/>
+	<label>Available KwH: </label>
+	<br>
+	<input type="text" th:field="*{user.grid}" disabled="disabled" class="form-control mb-4" placeholder="How many Kwh do you need?"/>
+	<label>Price per KwH: </label>
+	<br>
+	<input type="text" th:field="*{user.pricePerKillowatt}" disabled="disabled" class="form-control mb-4" placeholder="Grid">
+	<label>How many KwH(s) Do You want?: </label>
+	<br>
+	<input type="number" name="quantity" class="form-control mb-4" placeholder="How Many KwHs do you want?">
+	
+    <button class="btn btn-info btn-block my-4" type="submit">Confirm Sale</button>
+</form> -->
 </body>
 </html>

@@ -1,15 +1,18 @@
 package com.rohithreddy.PowerMallApplication.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "seller", uniqueConstraints = @UniqueConstraint(columnNames = "email_address"))
+@Table(name = "sellers")
 public class Seller {
 	
 	@Id
@@ -29,8 +32,15 @@ public class Seller {
 	@Column(name = "kilowatts_sold")
 	private double kiloWattHoursSold;
 	
+	@Column(name = "price_per_killowatt")
+	private double pricePerKillowatt;
+	
 	@Column(name = "grid_name")
 	private String grid;
+	
+	@OneToOne()
+	@JoinColumn(name = "user_id")
+	private User user;
 
 	
 	public int getId() {
@@ -39,6 +49,16 @@ public class Seller {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+	
+	
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public String getName() {
@@ -80,6 +100,15 @@ public class Seller {
 	public void setKilowatthours(double kilowatthours) {
 		this.kilowatthours = kilowatthours;
 	}
+
+	public double getPricePerKillowatt() {
+		return pricePerKillowatt;
+	}
+
+	public void setPricePerKillowatt(double pricePerKillowatt) {
+		this.pricePerKillowatt = pricePerKillowatt;
+	}	
+	
 	
 	
 }

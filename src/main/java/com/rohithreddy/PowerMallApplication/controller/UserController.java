@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -50,8 +51,12 @@ public class UserController {
 		return new Seller();
 	}
 //	index page
-	@GetMapping("/login")
+	@GetMapping("/")
 	public String showLoginPage() {
+		return "user_login";
+	}
+	@GetMapping("/login")
+	public String showLogin() {
 		return "user_login";
 	}
 	
@@ -90,9 +95,9 @@ public class UserController {
 	}
 //	buy power confirmation
 	@GetMapping("/buyPowerConfirmation")
-	public String buyPowerConfirm( @RequestParam("user_id")  int user_id, Model model) {
+	public String buyPowerConfirm( @RequestParam("user_id")  int user_id, @RequestParam("seller_id")  int seller_id, Model model) {
 		
-//		model.addAttribute("seller", sellerService.getSellerById(seller_id));
+		model.addAttribute("seller", sellerService.getSellerById(seller_id));
 		model.addAttribute("user", userService.getUserByID(user_id));
 		
 		return "buy_confirm";
@@ -131,17 +136,26 @@ public class UserController {
 //	sell power page
 	@GetMapping("/sellPowerConfirmation")
 	public String sellPowerConfirm(@RequestParam("user_id") int user_id, Model model) {
-		model.addAttribute("seller", userService.getUserByID(user_id));
-		
+		User user = userService.getUserByID(user_id);
+//		Seller seller = user.getSeller();
+		model.addAttribute("user", user);
+//		model.addAttribute("seller", seller);	
 		return "sale_confirm";
 	}
 	
 //	sell power
-	@GetMapping("/sellPower")
-	public String sellPower(@RequestParam("user_id") int user_id, @RequestParam("kilowatthours") double kilowatthours, Model model) {
-		User user = userService.getUserByID(user_id);
-		Seller seller = sellerService.createSeller(user, kilowatthours);
-		model.addAttribute("user", userService.getUserByID(user_id));
+	@GetMapping("/sellPower/{user_id}")
+	public String sellPower(@RequestParam("quantity") int quantity, @PathVariable("user_id") int user_id, Model model) {
+		
+//		user.setUnitsSold(quantity);
+		
+//		seller.setPricePerKillowatt(seller_req.getPricePerKillowatt());
+//		
+//		seller.setKilowatthours(seller_req.getKilowatthours());
+//		
+//		sellerService.updateSeller(seller);
+//		
+//		model.addAttribute("seller", seller);
 		
 		return "redirect:/index?sale_successful";
 	}
