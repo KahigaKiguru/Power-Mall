@@ -20,6 +20,10 @@ public class SellerService {
 	@Autowired
 	private UserService userService;
 	
+	public Seller createSeller(Seller seller) {
+		return sellerRepository.save(seller);
+	}
+	
 	public Seller createSeller(User user) {
 		Seller seller = new Seller();
 		seller.setName(user.getName());

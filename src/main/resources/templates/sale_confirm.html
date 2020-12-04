@@ -36,15 +36,19 @@
 	<br>
 	<br>
 	<br>
-	<h1 th:text="${user.id}"></h1>
-	
+	<div class = "container">
+	<div class = "row"> 
 	<form th:action="@{/sellPower/{user_id}(user_id=${user.id})}" method="get">
-	<label> How many KwHs Do you want ?</label>
-	<input type="number" name="quantity" class="form-control mb-4" placeholder="KwH Quanntity" />
+	<label> How many KwHs Do you want to sell ?</label>
+	<input type="number" name="quantity" class="form-control mb-4" placeholder="KwH Quantity" />
 	<br>
-	<button type="submit"> Confirm Purchase</button>
+	<label> What is the price per unit ?</label>
+	<input type="number" name="price" class="form-control mb-4" placeholder="Price per KwH" />
+	<br>
+	<button class="btn btn-info btn-block my-4" type="submit"> Confirm Sale</button>
 	</form>
-	
+	</div>
+	</div>
 	<!-- <form th:object="${user}" th:action="@{/sellPower(user_id=${user.id})}" class="border border-light p-5" method="post">
 
     <br>

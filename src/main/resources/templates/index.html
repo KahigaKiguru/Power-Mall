@@ -29,37 +29,48 @@
 				<!-- Navbar brand -->
 				<a class="navbar-brand" href="#">Welcome to the Power Mall</a>
 				<form class="form-inline">
-					<div th:if="${param.purchase_successful}">
-						<div class="alert alert-success">
-						<span> Purchase Successful! Total KwH Available: </span>
-						<span th:text="${user.unitsBought}"></span>
-						</div></div>
-						<div th:if="${param.sale_successful}">
-							<div class="alert alert-success">
-							<span>Sale Successful! Total KwH sold: </span>
-							</div></div>
-							
-							<a  class="btn btn-outline-white" th:href="@{/logout}" type="submit">Log Out</a>
+
+
+					<a class="btn btn-outline-white" th:href="@{/logout}" type="submit">Log
+						Out</a>
 				</form>
 			</div>
 		</nav>
 		<!--/.Navbar-->
-
+		
 		<div class="view"
 			style="background-image: url('https://mdbootstrap.com/img/Photos/Others/architecture.jpg'); background-repeat: no-repeat; background-size: cover; background-position: center center;">
-		<div class="mask rgba-gradient d-flex justify-content-center align-items-center">
-      <!-- Content -->
-      <div class="container">
-		<div class="col-md-6 white-text text-center text-md-left mt-xl-5 mb-5 wow fadeInLeft" data-wow-delay="0.3s">
-            <h1 class="h1-responsive font-weight-bold mt-sm-5">Buy and Sell Clean Energy on your grid with Power Mall </h1>
-            <hr class="hr-light">
-            <h6 class="mb-4">The marketplace for clean energy producers and consumers</h6>
-            <a class="btn btn-white" th:href="@{/sellPowerConfirmation(user_id=${user.id})}">Sell Power</a>
-            <a class="btn btn-outline-white" th:href="@{/buyPowerPage(user_id=${user.id})}">Buy Power</a>
-          </div>
-          </div>
-          </div>
-          </div>
+			<div
+				class="mask rgba-gradient d-flex justify-content-center align-items-center">
+				<!-- Content -->
+				<div class="container">
+					<div
+						class="col-md-6 white-text text-center text-md-left mt-xl-5 mb-5 wow fadeInLeft"
+						data-wow-delay="0.3s">
+						<h1 class="h1-responsive font-weight-bold mt-sm-5">Buy and
+							Sell Clean Energy on your grid with Power Mall</h1>
+						<hr class="hr-light">
+						<h6 class="mb-4">The marketplace for clean energy producers
+							and consumers</h6>
+						<a class="btn btn-white"
+							th:href="@{/sellPowerConfirmation(user_id=${user.id})}">Sell
+							Power</a> <a class="btn btn-outline-white"
+							th:href="@{/buyPowerPage(user_id=${user.id})}">Buy Power</a>
+					</div>
+					<div th:if="${param.purchase_successful}">
+						<div class="alert alert-success">
+							<span> Purchase Successful! </span> <span
+								th:text="${user.unitsBought}"></span>
+						</div>
+					</div>
+					<div th:if="${param.sale_successful}">
+						<div class="alert alert-success">
+							<span>Sale Successful!</span>
+						</div>
+					</div>
+					</div>
+				</div>
+			</div>
 	</header>
 	<main></main>
 	<footer></footer>

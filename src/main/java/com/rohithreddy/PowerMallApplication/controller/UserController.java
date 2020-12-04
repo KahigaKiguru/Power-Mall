@@ -95,39 +95,44 @@ public class UserController {
 	}
 //	buy power confirmation
 	@GetMapping("/buyPowerConfirmation")
-	public String buyPowerConfirm( @RequestParam("user_id")  int user_id, @RequestParam("seller_id")  int seller_id, Model model) {
-		
-		model.addAttribute("seller", sellerService.getSellerById(seller_id));
-		model.addAttribute("user", userService.getUserByID(user_id));
+	public String buyPowerConfirm( 
+			@RequestParam("user_id")  int user_id,
+			@RequestParam("seller_id")  int seller_id,
+			Model model) {
+		User user  = userService.getUserByID(user_id);
+		Seller seller = sellerService.getSellerById(seller_id);
+		model.addAttribute("seller", seller);
+		model.addAttribute("user", user);
 		
 		return "buy_confirm";
 	}
 	
 //	buy power
-	@PostMapping("/buyPower")
+	@GetMapping("/buyPower/{user_id}/{seller_id}")
 	public String buyPower(
-			@RequestParam("user_id") int seller_id,
-			@RequestParam("user_id") int user_id,
-			@ModelAttribute("seller") Seller seller_req) {
+			@PathVariable("user_id") int user_id,
+			@PathVariable("seller_id") int seller_id,
+			@RequestParam("quantity") double quantity, 
+			Model model) {
 		
-		Seller seller = sellerService.getSellerById(seller_id);
-		
-		seller.setKiloWattHoursSold(seller_req.getKiloWattHoursSold());
 		
 		User user = userService.getUserByID(user_id);
 		
-		user.setUnitsBought(seller_req.getKiloWattHoursSold());
-
-		String user_seller_email = seller.getEmailAddress();
+		Seller seller = sellerService.getSellerById(seller_id);
 		
-		User user_seller = userService.getUserByEmail(user_seller_email);
+		seller.setKiloWattHoursSold(quantity);
 		
-		user_seller.setUnitsSold(seller_req.getKiloWattHoursSold());
+		
+		seller.setKiloWattHoursSold(seller.getKiloWattHoursSold() + quantity);
+		seller.setKilowatthours(seller.getKilowatthours() - quantity);
+		
+		user.setUnitsBought(quantity);
 		
 		sellerService.updateSeller(seller);
 		
 		userService.updateUser(user);
-		userService.updateUser(user_seller);
+		
+		model.addAttribute("seller", seller);
 		
 		return "redirect:/index?purchase_successful";
 		
@@ -137,7 +142,7 @@ public class UserController {
 	@GetMapping("/sellPowerConfirmation")
 	public String sellPowerConfirm(@RequestParam("user_id") int user_id, Model model) {
 		User user = userService.getUserByID(user_id);
-//		Seller seller = user.getSeller();
+
 		model.addAttribute("user", user);
 //		model.addAttribute("seller", seller);	
 		return "sale_confirm";
@@ -145,18 +150,30 @@ public class UserController {
 	
 //	sell power
 	@GetMapping("/sellPower/{user_id}")
-	public String sellPower(@RequestParam("quantity") int quantity, @PathVariable("user_id") int user_id, Model model) {
+	public String sellPower(
+			@RequestParam("quantity") int quantity, 
+			@PathVariable("user_id") int user_id, 
+			@RequestParam("price") double price, 
+			Model model) {
+		User user = userService.getUserByID(user_id);
 		
-//		user.setUnitsSold(quantity);
+		if(sellerService.getSellerByEmail(user.getEmail()) != null) {
+		Seller mySeller =  sellerService.getSellerByEmail(user.getEmail());
+		mySeller.setKilowatthours(mySeller.getKilowatthours() + quantity);
+		mySeller.setPricePerKillowatt(price);
+		model.addAttribute("seller", mySeller);
+	} else {
+		Seller mySeller = new Seller();
+		mySeller.setName(user.getName());
+		mySeller.setEmailAddress(user.getEmail());
+		mySeller.setGrid(user.getGrid());
+		mySeller.setKilowatthours(quantity);
+		mySeller.setPricePerKillowatt(price);
+		mySeller.setKiloWattHoursSold(0);
 		
-//		seller.setPricePerKillowatt(seller_req.getPricePerKillowatt());
-//		
-//		seller.setKilowatthours(seller_req.getKilowatthours());
-//		
-//		sellerService.updateSeller(seller);
-//		
-//		model.addAttribute("seller", seller);
-		
+		sellerService.createSeller(mySeller);
+		model.addAttribute("seller", mySeller);
+	}
 		return "redirect:/index?sale_successful";
 	}
 	
