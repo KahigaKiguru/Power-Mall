@@ -1,4 +1,4 @@
-package com.rohithreddy.PowerMallApplication.model;
+package com.enzitechnologies.PowerMallApplication.model;
 
 import java.util.ArrayList;
 import java.util.Collection;

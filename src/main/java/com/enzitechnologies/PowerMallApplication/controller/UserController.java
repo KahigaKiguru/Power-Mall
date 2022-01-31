@@ -1,8 +1,9 @@
-package com.rohithreddy.PowerMallApplication.controller;
+package com.enzitechnologies.PowerMallApplication.controller;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import com.enzitechnologies.PowerMallApplication.service.SellerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -14,30 +15,33 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.rohithreddy.PowerMallApplication.model.Seller;
-import com.rohithreddy.PowerMallApplication.model.User;
-import com.rohithreddy.PowerMallApplication.model.UserWrapper;
-import com.rohithreddy.PowerMallApplication.service.SellerService;
-import com.rohithreddy.PowerMallApplication.service.UserService;
+import com.enzitechnologies.PowerMallApplication.model.Seller;
+import com.enzitechnologies.PowerMallApplication.model.User;
+import com.enzitechnologies.PowerMallApplication.model.UserWrapper;
+import com.enzitechnologies.PowerMallApplication.service.UserService;
 
 @Controller
 public class UserController {
 	
-	static List<String> grids = null;
+	static List<String> grids;
 	
 	@Autowired
 	BCryptPasswordEncoder passwordEncoder;
 	
 	static {
-		grids = new ArrayList<String>();
-		grids.add("Philadelphia Grid");
-		grids.add("Ohio Grid");
-		grids.add("Delaware Grid");
-		grids.add("Conneticut Grid");
-		grids.add("Arkansas Grid");
-		grids.add("Arizona Grid");
-		grids.add("Florida Grid");
-		
+		grids = new ArrayList<>();
+
+		grids.add("Watamu Grid");
+		grids.add("Eldoret Grid");
+		grids.add("Kisumu Grid");
+		grids.add("Nairobi Grid");
+		grids.add("Nyeri Grid");
+		grids.add("Nyahururu Grid");
+		grids.add("Thika Grid");
+		grids.add("Narok Grid");
+		grids.add("Nakuru Grid");
+		grids.add("Isiolo Grid");
+
 	}
 
 	@Autowired

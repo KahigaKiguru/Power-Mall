@@ -1,4 +1,4 @@
-package com.rohithreddy.PowerMallApplication.security;
+package com.enzitechnologies.PowerMallApplication.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

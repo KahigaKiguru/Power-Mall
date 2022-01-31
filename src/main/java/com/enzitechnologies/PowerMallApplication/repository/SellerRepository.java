@@ -1,11 +1,11 @@
-package com.rohithreddy.PowerMallApplication.repository;
+package com.enzitechnologies.PowerMallApplication.repository;
 
 import java.util.List;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import com.rohithreddy.PowerMallApplication.model.Seller;
+import com.enzitechnologies.PowerMallApplication.model.Seller;
 
 @Repository
 public interface SellerRepository extends CrudRepository<Seller, Integer>{

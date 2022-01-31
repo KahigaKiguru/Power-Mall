@@ -1,15 +1,15 @@
-package com.rohithreddy.PowerMallApplication.service;
+package com.enzitechnologies.PowerMallApplication.service;
 
 import java.util.Arrays;
 import java.util.List;
 
+import com.enzitechnologies.PowerMallApplication.repository.SellerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.rohithreddy.PowerMallApplication.model.Role;
-import com.rohithreddy.PowerMallApplication.model.Seller;
-import com.rohithreddy.PowerMallApplication.model.User;
-import com.rohithreddy.PowerMallApplication.repository.SellerRepository;
+import com.enzitechnologies.PowerMallApplication.model.Role;
+import com.enzitechnologies.PowerMallApplication.model.Seller;
+import com.enzitechnologies.PowerMallApplication.model.User;
 
 @Service
 public class SellerService {

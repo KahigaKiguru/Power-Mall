@@ -1,7 +1,10 @@
-package com.rohithreddy.PowerMallApplication.service;
+package com.enzitechnologies.PowerMallApplication.service;
 
 import java.util.Arrays;
 
+import com.enzitechnologies.PowerMallApplication.model.User;
+import com.enzitechnologies.PowerMallApplication.model.UserWrapper;
+import com.enzitechnologies.PowerMallApplication.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -9,10 +12,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.rohithreddy.PowerMallApplication.model.Role;
-import com.rohithreddy.PowerMallApplication.model.User;
-import com.rohithreddy.PowerMallApplication.model.UserWrapper;
-import com.rohithreddy.PowerMallApplication.repository.UserRepository;
+import com.enzitechnologies.PowerMallApplication.model.Role;
 
 @Service
 public class UserService implements UserDetailsService {
